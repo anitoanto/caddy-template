@@ -26,3 +26,4 @@ networks:
   caddy_network:
     name: caddy_network
     driver: bridge
+    external: true
