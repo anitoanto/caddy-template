@@ -5,6 +5,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: caddy
+    networks:
+      - caddy_network
     restart: unless-stopped
     ports:
       - "80:80"
@@ -19,3 +21,7 @@ services:
 volumes:
   caddy_data:
   caddy_config:
+
+networks:
+  caddy_network:
+    driver: bridge
