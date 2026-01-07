@@ -1,6 +1,6 @@
 services:
   caddy:
-    image: caddy-with-extra-image:latest
+    image: caddy-extended:latest
     build:
       context: .
       dockerfile: Dockerfile
