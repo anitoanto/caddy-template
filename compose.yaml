@@ -3,7 +3,7 @@ services:
     image: caddy-extended:latest
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: dockerfile
     container_name: caddy
     networks:
       - caddy_network
