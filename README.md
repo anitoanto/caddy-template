@@ -43,6 +43,10 @@ Edit `config/Caddyfile` to customise routing, TLS, reverse proxying, etc. The fi
 docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
 ```
 
+## Adding more configs
+- Create a folder inside `config/caddy-configs/folder`
+- You must have `index.caddyfile` that may have your configs, also support importing other .caddyfile within the root of the folder your created.
+
 ## Connecting Other Services
 
 Other Compose services can join the pre-existing network:
