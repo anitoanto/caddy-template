@@ -5,6 +5,9 @@ services:
       context: .
       dockerfile: dockerfile
     container_name: caddy
+    env_file:
+      - path: .env
+        required: false
     networks:
       - caddy_network
     restart: unless-stopped

@@ -12,6 +12,7 @@ A Docker-based [Caddy](https://caddyserver.com/) web server template with Cloudf
 ## Project Structure
 
 ```
+├── .env.sample         # Sample env vars injected into the Caddy container
 ├── compose.yaml        # Docker Compose service definition
 ├── dockerfile          # Multi-stage build: xcaddy builder → runtime image
 ├── config/
@@ -29,6 +30,12 @@ docker compose up -d
 curl http://localhost
 ```
 
+If you need environment variables in your Caddy configs, create `.env` from the sample first:
+
+```bash
+cp .env.sample .env
+```
+
 To rebuild after changes:
 
 ```bash
@@ -41,6 +48,32 @@ Edit `config/Caddyfile` to customise routing, TLS, reverse proxying, etc. The fi
 
 ```bash
 docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
+```
+
+## Environment Variables In Caddy Configs
+
+The `caddy` service optionally loads environment variables from the repo-level `.env` file and makes them available to every Caddyfile fragment imported from `config/caddy-configs/*/index.caddyfile`.
+
+Use Caddy's env placeholder syntax inside any loaded config:
+
+```caddyfile
+:443 {
+    tls {
+        dns cloudflare {$CLOUDFLARE_API_TOKEN}
+    }
+}
+```
+
+If your config needs environment variables, create `.env` from the sample file and add the values you need:
+
+```bash
+cp .env.sample .env
+```
+
+If you change `.env`, recreate the container so Caddy starts with the updated environment:
+
+```bash
+docker compose up -d --force-recreate caddy
 ```
 
 ## Adding more configs
